@@ -10,6 +10,7 @@ import com.mindflush.helpDesk.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.UUID;
 
 @Service
 public class CreateCompanyWithAdminUseCase {
@@ -37,6 +38,7 @@ public class CreateCompanyWithAdminUseCase {
         newCompany.setName(registrationDTO.getCompanyData().getName());
         newCompany.setCnpj(registrationDTO.getCompanyData().getCnpj());
         newCompany.setEmail(registrationDTO.getCompanyData().getEmail());
+
         newCompany = companyRepository.save(newCompany);
 
         Role adminRole = new Role();
@@ -47,12 +49,16 @@ public class CreateCompanyWithAdminUseCase {
         User newAdminUser = new User();
         newAdminUser.setName(registrationDTO.getUserData().getName());
         newAdminUser.setEmail(registrationDTO.getUserData().getEmail());
+        newAdminUser.setEmployeeId(registrationDTO.getUserData().getEmployeeId());
 
-        String encryptedPassword = passwordEncoder.encode(registrationDTO.getUserData().getPassword());
+        String temporaryPassword = UUID.randomUUID().toString().substring(0, 8);
+
+        String encryptedPassword = passwordEncoder.encode(temporaryPassword);
         newAdminUser.setPassword(encryptedPassword);
 
         newAdminUser.setCompany(newCompany);
         newAdminUser.setRole(adminRole);
+        newAdminUser.setActive(true);
 
         userRepository.save(newAdminUser);
 

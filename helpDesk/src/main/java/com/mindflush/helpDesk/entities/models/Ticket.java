@@ -1,11 +1,10 @@
 package com.mindflush.helpDesk.entities.models;
 
-import com.mindflush.helpDesk.entities.enums.ProblemType;
-import com.mindflush.helpDesk.entities.enums.TicketStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +23,7 @@ public class Ticket {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @ManyToOne
@@ -43,14 +42,21 @@ public class Ticket {
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "problem_type_id", nullable = false)
     private ProblemType problemType;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "status_id", nullable = false)
     private TicketStatus status;
 
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
     private LocalDateTime updatedAt;
     private LocalDateTime resolvedAt;
-
 }

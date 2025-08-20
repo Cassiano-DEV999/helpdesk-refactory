@@ -28,7 +28,7 @@ public class CreateUserUseCase {
     @Transactional
     public User execute(UserRequestDTO userData, User authenticatedUser) {
         if (userRepository.findByEmail(userData.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("Email already in use.");
+            throw new IllegalArgumentException("Email já em uso.");
         }
         if (userRepository.findByEmployeeId(userData.getEmployeeId()).isPresent()) {
             throw new IllegalArgumentException("Employee ID already in use.");
@@ -36,10 +36,10 @@ public class CreateUserUseCase {
         Company company = authenticatedUser.getCompany();
 
         Role role = roleRepository.findById(userData.getRoleId())
-                .orElseThrow(() -> new IllegalArgumentException("Role not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Cargo não encontrado"));
 
         if (!role.getCompany().equals(company)) {
-            throw new IllegalArgumentException("Role does not belong to the user's company.");
+            throw new IllegalArgumentException("Cargo não pertence a está companhia.");
         }
 
         User newUser = new User();

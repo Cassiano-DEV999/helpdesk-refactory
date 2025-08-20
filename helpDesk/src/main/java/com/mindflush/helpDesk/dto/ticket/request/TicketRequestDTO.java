@@ -24,6 +24,10 @@ public class TicketRequestDTO {
 
     private UUID assignedToId;
 
-    @NotNull(message = "Problem Type cannot be null")
-    private String problemType;
+    @NotNull(message = "Problem Type ID cannot be null")
+    private UUID problemTypeId;
+
+    // Adicionamos o ID do status, caso o frontend queira definir um status inicial
+    @NotNull(message = "Status ID cannot be null")
+    private UUID statusId;
 }

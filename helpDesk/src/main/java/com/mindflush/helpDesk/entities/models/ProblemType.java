@@ -10,9 +10,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_department")
-public class Department {
-
+@Table(name = "tb_problem_type")
+public class ProblemType {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -21,9 +20,8 @@ public class Department {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(name = "company_id")
     private Company company;
 
     private boolean active;
-
 }

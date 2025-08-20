@@ -4,14 +4,15 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_department")
-public class Department {
+@Table(name = "tb_ticket_status")
+public class TicketStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -21,9 +22,8 @@ public class Department {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(name = "company_id")
     private Company company;
 
     private boolean active;
-
 }

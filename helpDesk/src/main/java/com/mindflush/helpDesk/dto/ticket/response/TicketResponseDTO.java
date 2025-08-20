@@ -16,9 +16,8 @@ public class TicketResponseDTO {
     private String title;
     private String description;
 
-    // Converte os enums para String para a resposta da API
-    private String problemType;
-    private String status;
+    private SimpleProblemTypeDTO problemType;
+    private SimpleStatusDTO status;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -41,6 +40,22 @@ public class TicketResponseDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class SimpleDepartmentDTO {
+        private UUID id;
+        private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class SimpleProblemTypeDTO {
+        private UUID id;
+        private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class SimpleStatusDTO {
         private UUID id;
         private String name;
     }
